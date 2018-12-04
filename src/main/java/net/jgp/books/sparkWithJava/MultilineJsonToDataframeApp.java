@@ -1,4 +1,4 @@
-package org.example.dataproc;
+package net.jgp.books.sparkWithJava;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;

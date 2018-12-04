@@ -93,6 +93,7 @@ cmake-build-*/
 
 # IntelliJ
 out/
+build/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -112,9 +113,4 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
-build
-out
-.ivy2
-data/ch08/nyc_restaurants-5-4-3.tar.gz
-data/ch08/nyc_restaurants
-*_history
+data/ibrd-total-principal/
