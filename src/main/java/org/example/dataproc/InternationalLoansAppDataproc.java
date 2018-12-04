@@ -5,11 +5,11 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
 
-public class InternationalLoansApp {
+public class InternationalLoansAppDataproc {
 
     public static void main(String[] args) {
 
-        InternationalLoansApp app = new InternationalLoansApp();
+        InternationalLoansAppDataproc app = new InternationalLoansAppDataproc();
         app.start();
     }
 
@@ -27,7 +27,7 @@ public class InternationalLoansApp {
                 .format("csv")
                 .option("header", "true")
                 .option("inferSchema", true)
-                .load("data/ibrd-statement-of-loans-latest-available-snapshot.csv");
+                .load("gs://gstafford-spark-demo/ibrd-statement-of-loans-latest-available-snapshot.csv");
 
         System.out.printf("DataFrame Row Count: %d%n", dfLoans.count());
         dfLoans.printSchema();
@@ -76,7 +76,7 @@ public class InternationalLoansApp {
                 .mode(SaveMode.Overwrite)
                 .format("csv")
                 .option("header", "true")
-                .save("data/ibrd-loan-summary");
+                .save("gs://gstafford-spark-demo/ibrd-loan-summary");
 
         System.out.println("Results successfully written to CSV file");
     }
