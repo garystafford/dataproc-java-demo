@@ -1,0 +1,28 @@
+// Author: Gary A. Stafford
+// Description: Build for review of Manning Publication's 'Spark in Action, Second Edition'
+// Date: 12-01-2018
+
+plugins {
+    id 'java'
+}
+
+group 'net.jgp.books'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    scalaVersion = "2.12"
+    sparkVersion = "2.4.0"
+}
+
+dependencies {
+    implementation group: 'org.apache.spark', name: "spark-core_${scalaVersion}", version: sparkVersion
+    implementation group: 'org.apache.spark', name: "spark-sql_${scalaVersion}", version: sparkVersion
+    implementation group: 'com.google.cloud.bigdataoss', name: 'gcs-connector', version: 'hadoop3-1.9.10'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
