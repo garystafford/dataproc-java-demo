@@ -20,6 +20,8 @@ public class InternationalLoansApp {
                 .master("local[*]")
                 .getOrCreate();
 
+        spark.sparkContext().setLogLevel("WARN"); // INFO by default
+
         // Loads CSV file from Google Storage Bucket
         Dataset<Row> dfLoans = spark.read()
                 .format("csv")
@@ -74,6 +76,6 @@ public class InternationalLoansApp {
                 .mode(SaveMode.Overwrite)
                 .format("csv")
                 .option("header", "true")
-                .save("data/ibrd-total-principal");
+                .save("data/ibrd-loan-summary");
     }
 }
