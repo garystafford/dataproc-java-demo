@@ -22,14 +22,16 @@ public class InternationalLoansApp {
 
         spark.sparkContext().setLogLevel("WARN"); // INFO by default
 
-        // Loads CSV file from Google Storage Bucket
+        // Loads CSV file from local directory
         Dataset<Row> dfLoans = spark.read()
                 .format("csv")
                 .option("header", "true")
                 .option("inferSchema", true)
                 .load("data/ibrd-statement-of-loans-latest-available-snapshot.csv");
 
-        System.out.printf("DataFrame Row Count: %d%n", dfLoans.count());
+        // Basic stats
+        System.out.printf("Rows of data:%d%n", dfLoans.count());
+        System.out.println("Inferred Schema:");
         dfLoans.printSchema();
 
         // Creates temporary view using DataFrame
@@ -43,8 +45,8 @@ public class InternationalLoansApp {
         // Performs basic analysis of dataset
         Dataset<Row> dfDisbursement = spark.sql(
                 "SELECT country, country_code, " +
-                        "format_number(total_disbursement, 0) AS total_disbursement, " +
-                        "format_number(total_obligation, 0) AS total_obligation, " +
+                        "format_number(ABS(total_disbursement), 0) AS total_disbursement, " +
+                        "format_number(ABS(total_obligation), 0) AS total_obligation, " +
                         "format_number(avg_interest_rate, 2) AS avg_interest_rate " +
                         "FROM (" +
                         "SELECT country, country_code, " +
@@ -70,7 +72,7 @@ public class InternationalLoansApp {
 
         dfGrandTotalObligation.show();
 
-        // Saves results to single CSV file in Google Storage Bucket
+        // Saves results to a locally CSV file
         dfDisbursement.repartition(1)
                 .write()
                 .mode(SaveMode.Overwrite)
