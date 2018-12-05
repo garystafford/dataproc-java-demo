@@ -17,7 +17,7 @@ public class InternationalLoansAppDataprocLarge {
 
         SparkSession spark = SparkSession.builder()
                 .appName("java-dataproc-demo")
-                .master("local[*]")
+                .master("yarn")
                 .getOrCreate();
 
         spark.sparkContext().setLogLevel("WARN"); // INFO by default
