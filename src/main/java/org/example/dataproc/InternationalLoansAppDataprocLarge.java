@@ -5,11 +5,11 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
 
-public class InternationalLoansAppDataproc {
+public class InternationalLoansAppDataprocLarge {
 
     public static void main(String[] args) {
 
-        InternationalLoansAppDataproc app = new InternationalLoansAppDataproc();
+        InternationalLoansAppDataprocLarge app = new InternationalLoansAppDataprocLarge();
         app.start();
     }
 
@@ -17,7 +17,7 @@ public class InternationalLoansAppDataproc {
 
         SparkSession spark = SparkSession.builder()
                 .appName("java-dataproc-demo")
-                .master("yarn")
+                .master("local[*]")
                 .getOrCreate();
 
         spark.sparkContext().setLogLevel("WARN"); // INFO by default
@@ -27,10 +27,7 @@ public class InternationalLoansAppDataproc {
                 .format("csv")
                 .option("header", "true")
                 .option("inferSchema", true)
-                .load("gs://dataproc-demo-bucket/ibrd-statement-of-loans-latest-available-snapshot.csv");
-
-        System.out.printf("DataFrame Row Count: %d%n", dfLoans.count());
-        dfLoans.printSchema();
+                .load("gs://dataproc-demo-bucket/ibrd-statement-of-loans-historical-data.csv");
 
         // Creates temporary view using DataFrame
         dfLoans.withColumnRenamed("Country", "country")
@@ -56,27 +53,13 @@ public class InternationalLoansAppDataproc {
                         "ORDER BY total_disbursement DESC)"
         );
 
-        dfDisbursement.show(10, 100);
-
-        Dataset<Row> dfGrandTotalDisbursement = spark.sql(
-                "SELECT format_number(SUM(disbursed),0) AS grand_total_disbursement FROM loans"
-        );
-
-        dfGrandTotalDisbursement.show();
-
-        Dataset<Row> dfGrandTotalObligation = spark.sql(
-                "SELECT format_number(SUM(obligation),0) AS grand_total_obligation FROM loans"
-        );
-
-        dfGrandTotalObligation.show();
-
         // Saves results to single CSV file in Google Storage Bucket
         dfDisbursement.repartition(1)
                 .write()
                 .mode(SaveMode.Overwrite)
                 .format("csv")
                 .option("header", "true")
-                .save("gs://dataproc-demo-bucket/ibrd-loan-summary");
+                .save("gs://dataproc-demo-bucket/ibrd-loan-summary-large");
 
         System.out.println("Results successfully written to CSV file");
     }

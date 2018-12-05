@@ -16,7 +16,7 @@ public class InternationalLoansApp {
     private void start() {
 
         SparkSession spark = SparkSession.builder()
-                .appName("CSV to DataFrame")
+                .appName("java-dataproc-demo")
                 .master("local[*]")
                 .getOrCreate();
 
