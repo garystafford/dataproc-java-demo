@@ -20,7 +20,7 @@ public class InternationalLoansApp {
                 .master("local[*]")
                 .getOrCreate();
 
-        spark.sparkContext().setLogLevel("WARN"); // INFO by default
+        spark.sparkContext().setLogLevel("INFO"); // INFO by default
 
         // Loads CSV file from local directory
         Dataset<Row> dfLoans = spark.read()
@@ -82,5 +82,7 @@ public class InternationalLoansApp {
                 .save("data/ibrd-loan-summary");
 
         System.out.println("Results successfully written to CSV file");
+
+//        spark.stop();
     }
 }
