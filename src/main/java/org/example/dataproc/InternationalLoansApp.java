@@ -60,13 +60,15 @@ public class InternationalLoansApp {
         );
 
         dfDisbursement.show(25, 100);
-
+        
+        // Calculates and displays the grand total disbursed amount
         Dataset<Row> dfGrandTotalDisbursement = spark.sql(
                 "SELECT format_number(SUM(disbursed),0) AS grand_total_disbursement FROM loans"
         );
 
         dfGrandTotalDisbursement.show();
 
+        // Calculates and displays the grand total remaining obligation amount
         Dataset<Row> dfGrandTotalObligation = spark.sql(
                 "SELECT format_number(SUM(obligation),0) AS grand_total_obligation FROM loans"
         );
