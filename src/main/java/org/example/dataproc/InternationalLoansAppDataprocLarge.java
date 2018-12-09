@@ -39,19 +39,19 @@ public class InternationalLoansAppDataprocLarge {
 
         // Performs basic analysis of dataset
         Dataset<Row> dfDisbursement = spark.sql(
-                "SELECT country, country_code, " +
-                        "format_number(total_disbursement, 0) AS total_disbursement, " +
-                        "format_number(ABS(total_obligation), 0) AS total_obligation, " +
-                        "format_number(avg_interest_rate, 2) AS avg_interest_rate " +
-                        "FROM (" +
-                        "SELECT country, country_code, " +
-                        "SUM(disbursed) AS total_disbursement, " +
-                        "SUM(obligation) AS total_obligation, " +
-                        "AVG(interest_rate) avg_interest_rate " +
-                        "FROM loans " +
-                        "GROUP BY country, country_code " +
-                        "ORDER BY total_disbursement DESC " +
-                        "LIMIT 25)"
+                "SELECT country, country_code, "
+                        + "format_number(total_disbursement, 0) AS total_disbursement, "
+                        + "format_number(ABS(total_obligation), 0) AS total_obligation, "
+                        + "format_number(avg_interest_rate, 2) AS avg_interest_rate "
+                        + "FROM ( "
+                        + "SELECT country, country_code, "
+                        + "SUM(disbursed) AS total_disbursement, "
+                        + "SUM(obligation) AS total_obligation, "
+                        + "AVG(interest_rate) AS avg_interest_rate "
+                        + "FROM loans "
+                        + "GROUP BY country, country_code "
+                        + "ORDER BY total_disbursement DESC "
+                        + "LIMIT 25)"
         );
 
         // Saves results to single CSV file in Google Storage Bucket
