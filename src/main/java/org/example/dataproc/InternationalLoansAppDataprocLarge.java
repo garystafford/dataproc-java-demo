@@ -60,7 +60,7 @@ public class InternationalLoansAppDataprocLarge {
                 .mode(SaveMode.Overwrite)
                 .format("csv")
                 .option("header", "true")
-                .save("gs://dataproc-demo-bucket/ibrd-loan-summary-large");
+                .save("gs://dataproc-demo-bucket/ibrd-loan-summary-large-java");
 
         System.out.println("Results successfully written to CSV file");
     }
