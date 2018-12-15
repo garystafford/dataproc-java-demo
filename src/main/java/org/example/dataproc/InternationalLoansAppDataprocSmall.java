@@ -5,11 +5,11 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
 
-public class InternationalLoansAppDataproc {
+public class InternationalLoansAppDataprocSmall {
 
     public static void main(String[] args) {
 
-        InternationalLoansAppDataproc app = new InternationalLoansAppDataproc();
+        InternationalLoansAppDataprocSmall app = new InternationalLoansAppDataprocSmall();
         app.start();
     }
 
