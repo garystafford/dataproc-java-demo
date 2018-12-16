@@ -81,7 +81,7 @@ public class InternationalLoansApp {
                 .mode(SaveMode.Overwrite)
                 .format("csv")
                 .option("header", "true")
-                .save("data/ibrd-loan-summary");
+                .save("data/ibrd-summary-small-java");
 
         System.out.println("Results successfully written to CSV file");
 
