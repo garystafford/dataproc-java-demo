@@ -5,6 +5,14 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
 
+/**
+ * The InternationalLoansAppDataproc Spark job accepts three input arguments.
+ * The program is designed to run on Google Cloud Dataproc.
+ *
+ * @author  Gary A. Stafford
+ * @version 1.0
+ * @since   2018-12-16
+ */
 public class InternationalLoansAppDataproc {
 
     private static String storageBucket;
